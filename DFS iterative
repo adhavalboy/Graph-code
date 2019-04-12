@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+//iterative Graph DFS traversal
+class Graph{
+	int V;
+	list<int> *adj;
+	public:
+	void addEdge(int u,int v);
+	Graph(int V);
+	void DFS(int s);
+};
+Graph::Graph(int v){
+	this->V=v;
+	adj=new list<int>[V];
+}
+void Graph::addEdge(int v,int u){
+	adj[v].push_back(u);
+}
+void Graph::DFS(int s){
+	vector <bool> visited(V,false);
+	stack<int> st;
+	st.push(s);
+	while(!st.empty()){
+		int temp=st.top();
+		cout<<temp<<" ";
+		st.pop();
+		visited[temp]=true;
+		list<int>::iterator it;
+		for( it=adj[temp].begin();it!=adj[temp].end();it++){
+			if(!visited[*it]){
+				st.push(*it);
+			}
+		}
+	}
+}
+int main() {
+    Graph g(5); // Total 5 vertices in graph 
+    g.addEdge(1, 0); 
+    g.addEdge(0, 2); 
+    g.addEdge(2, 1); 
+    g.addEdge(0, 3); 
+    g.addEdge(1, 4); 
+  
+    cout << "Following is Depth First Traversal\n"; 
+    g.DFS(0); 
+    return 0;
+}
